@@ -1,31 +1,17 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const cursor = document.getElementById('cursor');
-  if (!cursor) return;
+const cursor = document.getElementById("cursor");
 
-  let mouseX = 0;
-  let mouseY = 0;
-  let currentX = 0;
-  let currentY = 0;
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-
-    // 🔥 snap initial position so it doesn't start top-left
-    if (currentX === 0 && currentY === 0) {
-      currentX = mouseX;
-      currentY = mouseY;
-    }
+if (cursor) {
+  document.addEventListener("mousemove", (e) => {
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
   });
-function animate() {
-  currentX = mouseX;
-  currentY = mouseY;
 
-  cursor.style.left = currentX + 'px';
-  cursor.style.top = currentY + 'px';
+  // Optional: make it slightly bigger on click
+  document.addEventListener("mousedown", () => {
+    cursor.style.transform = "translate(-50%, -50%) scale(1.4)";
+  });
 
-  requestAnimationFrame(animate);
+  document.addEventListener("mouseup", () => {
+    cursor.style.transform = "translate(-50%, -50%) scale(1)";
+  });
 }
-
-  animate();
-});
