@@ -1,41 +1,51 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Snowflake Cursor</title>
+  <title>Snowflake Cursor Effect</title>
   <style>
+    /* Dark background to make the snowflakes visible */
     body {
-      background: #111;
+      background-color: #1a1a1a;
+      margin: 0;
       height: 100vh;
       overflow: hidden;
-      margin: 0;
+      cursor: none; /* Hides the default system cursor */
     }
 
+    /* Main cursor dot */
     .cursor-dot {
       width: 8px;
       height: 8px;
-      background: white;
+      background-color: #ffffff;
       border-radius: 50%;
       position: fixed;
+      top: -4px;
+      left: -4px;
       pointer-events: none;
       z-index: 9999;
-      transform: translate(-50%, -50%);
+      will-change: transform;
     }
 
+    /* Spawned snowflakes */
     .cursor-flake {
       position: fixed;
-      color: white;
+      color: #add8e6;
       pointer-events: none;
       z-index: 9998;
-      transform: translate(-50%, -50%);
-      animation: flake-fall 1s ease-out forwards;
+      line-height: 1;
+      will-change: transform, opacity;
     }
 
+    /* Falling, drifting, and shrinking animation */
     @keyframes flake-fall {
-      to {
-        transform: translate(calc(-50% + var(--drift)), 60px);
+      0% {
+        transform: translate(-50%, -50%) translateY(0) translateX(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -50%) translateY(50px) translateX(var(--drift)) scale(0.5);
         opacity: 0;
       }
     }
@@ -44,31 +54,33 @@
 <body>
 
   <script>
-    const dot = document.createElement('div');
-    dot.className = 'cursor-dot';
-    document.body.appendChild(dot);
+    // Converted vanilla JavaScript logic
+    function initCursor() {
+      const dot = document.createElement('div');
+      dot.className = 'cursor-dot';
+      document.body.appendChild(dot);
 
-    let lastSpawn = 0;
+      let lastSpawn = 0;
 
-    document.addEventListener('mousemove', (e) => {
-      dot.style.left = `${e.clientX}px`;
-      dot.style.top = `${e.clientY}px`;
+      document.addEventListener('mousemove', (e) => {
+        dot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
 
-      const now = performance.now();
-      if (now - lastSpawn > 35) {
-        spawnFlake(e.clientX, e.clientY);
-        lastSpawn = now;
-      }
-    });
+        const now = performance.now();
+        if (now - lastSpawn > 35) {
+          spawnFlake(e.clientX, e.clientY);
+          lastSpawn = now;
+        }
+      });
+    }
 
     function spawnFlake(x, y) {
       const el = document.createElement('div');
       el.className = 'cursor-flake';
       el.textContent = '❄︎';
 
-      const drift    = (Math.random() - 0.5) * 48;
+      const drift = (Math.random() - 0.5) * 48;
       const duration = 700 + Math.random() * 500;
-      const size     = 9 + Math.random() * 7;
+      const size = 9 + Math.random() * 7;
 
       el.style.cssText = `
         left: ${x}px;
@@ -81,8 +93,9 @@
       document.body.appendChild(el);
       setTimeout(() => el.remove(), duration);
     }
-  </script>
 
+    // Initialize the cursor once the script loads
+    initCursor();
+  </script>
 </body>
 </html>
-```
