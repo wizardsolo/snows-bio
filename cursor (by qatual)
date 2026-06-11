@@ -1,38 +1,87 @@
-export function initCursor(): void {
-  const dot = document.createElement('div');
-  dot.className = 'cursor-dot';
-  document.body.appendChild(dot);
 
-  let lastSpawn = 0;
-
-  document.addEventListener('mousemove', (e) => {
-    dot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-
-    const now = performance.now();
-    if (now - lastSpawn > 35) {
-      spawnFlake(e.clientX, e.clientY);
-      lastSpawn = now;
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Snowflake Cursor</title>
+  <style>
+    body {
+      background: #111;
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
     }
-  });
-}
 
-function spawnFlake(x: number, y: number): void {
-  const el = document.createElement('div');
-  el.className = 'cursor-flake';
-  el.textContent = '❄︎';
+    .cursor-dot {
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+    }
 
-  const drift    = (Math.random() - 0.5) * 48;
-  const duration = 700 + Math.random() * 500;
-  const size     = 9 + Math.random() * 7;
+    .cursor-flake {
+      position: fixed;
+      color: white;
+      pointer-events: none;
+      z-index: 9998;
+      animation: flake-fall 1s ease-out forwards;
+    }
 
-  el.style.cssText = `
-    left: ${x}px;
-    top: ${y}px;
-    font-size: ${size}px;
-    --drift: ${drift}px;
-    animation: flake-fall ${duration}ms ease-out forwards;
-  `;
+    @keyframes flake-fall {
+      to {
+        transform: translateY(80px) translateX(var(--drift));
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
 
-  document.body.appendChild(el);
-  setTimeout(() => el.remove(), duration);
-}
+  <script>
+    // 1. Create the trailing dot
+    const dot = document.createElement('div');
+    dot.className = 'cursor-dot';
+    document.body.appendChild(dot);
+
+    let lastSpawn = 0;
+
+    // 2. Track mouse movement
+    document.addEventListener('mousemove', (e) => {
+      dot.style.left = `${e.clientX}px`;
+      dot.style.top = `${e.clientY}px`;
+
+      const now = performance.now();
+      if (now - lastSpawn > 35) {
+        spawnFlake(e.clientX, e.clientY);
+        lastSpawn = now;
+      }
+    });
+
+    // 3. Spawn snowflakes (TypeScript type annotations removed)
+    function spawnFlake(x, y) {
+      const el = document.createElement('div');
+      el.className = 'cursor-flake';
+      el.textContent = '❄︎';
+
+      const drift    = (Math.random() - 0.5) * 48;
+      const duration = 700 + Math.random() * 500;
+      const size     = 9 + Math.random() * 7;
+
+      el.style.cssText = `
+        left: ${x}px;
+        top: ${y}px;
+        font-size: ${size}px;
+        --drift: ${drift}px;
+        animation: flake-fall ${duration}ms ease-out forwards;
+      `;
+
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), duration);
+    }
+  </script>
+
+</body>
+</html>
