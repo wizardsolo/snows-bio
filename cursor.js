@@ -17,16 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
       currentY = mouseY;
     }
   });
+function animate() {
+  currentX = mouseX;
+  currentY = mouseY;
 
-  function animate() {
-    currentX += (mouseX - currentX) * 0.18;
-    currentY += (mouseY - currentY) * 0.18;
+  cursor.style.left = currentX + 'px';
+  cursor.style.top = currentY + 'px';
 
-    cursor.style.left = currentX + 'px';
-    cursor.style.top = currentY + 'px';
-
-    requestAnimationFrame(animate);
-  }
+  requestAnimationFrame(animate);
+}
 
   animate();
 });
