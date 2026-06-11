@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function animate() {
-    currentX += (mouseX - currentX) * 0.15;
-    currentY += (mouseY - currentY) * 0.15;
+    currentX += (mouseX - currentX) * 0.18;
+    currentY += (mouseY - currentY) * 0.18;
 
     cursor.style.left = currentX + 'px';
     cursor.style.top = currentY + 'px';
