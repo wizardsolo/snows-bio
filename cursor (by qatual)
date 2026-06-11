@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Snowflake Cursor</title>
   <style>
-    /* Dark background makes the white snowflakes visible */
     body {
       background: #111;
       height: 100vh;
@@ -13,7 +13,6 @@
       margin: 0;
     }
 
-    /* The main dot tracking the cursor */
     .cursor-dot {
       width: 8px;
       height: 8px;
@@ -25,17 +24,15 @@
       transform: translate(-50%, -50%);
     }
 
-    /* The falling snowflakes */
     .cursor-flake {
       position: fixed;
-      color: white; /* Normal white color */
+      color: white;
       pointer-events: none;
       z-index: 9998;
       transform: translate(-50%, -50%);
       animation: flake-fall 1s ease-out forwards;
     }
 
-    /* Controls how the flakes fall, drift horizontally, and fade out */
     @keyframes flake-fall {
       to {
         transform: translate(calc(-50% + var(--drift)), 60px);
@@ -47,38 +44,32 @@
 <body>
 
   <script>
-    // 1. Create and append the trailing dot
     const dot = document.createElement('div');
     dot.className = 'cursor-dot';
     document.body.appendChild(dot);
 
     let lastSpawn = 0;
 
-    // 2. Listen for mouse movement to move the dot and spawn flakes
     document.addEventListener('mousemove', (e) => {
       dot.style.left = `${e.clientX}px`;
       dot.style.top = `${e.clientY}px`;
 
       const now = performance.now();
-      // Limits flake creation to every 35 milliseconds
       if (now - lastSpawn > 35) {
         spawnFlake(e.clientX, e.clientY);
         lastSpawn = now;
       }
     });
 
-    // 3. Function to create individual snowflakes
     function spawnFlake(x, y) {
       const el = document.createElement('div');
       el.className = 'cursor-flake';
       el.textContent = '❄︎';
 
-      // Randomize drift width, life duration, and font size
       const drift    = (Math.random() - 0.5) * 48;
       const duration = 700 + Math.random() * 500;
       const size     = 9 + Math.random() * 7;
 
-      // Apply the unique randomized styles to this specific snowflake
       el.style.cssText = `
         left: ${x}px;
         top: ${y}px;
@@ -88,11 +79,10 @@
       `;
 
       document.body.appendChild(el);
-      
-      // Clean up the element from the DOM once its animation finishes
       setTimeout(() => el.remove(), duration);
     }
   </script>
 
 </body>
 </html>
+```
