@@ -5,471 +5,208 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="/pfp.webp" rel="icon">
   <title>snows bio</title>
-
-  <meta name="title" content="snow's bio" />
-  <meta name="description" content="snow's bio" />
-  <meta name="keywords" content="unblocked games, unblocked, proxy, pr0xy, unbl0cked games, games, game, fnaf, minecraft, pr0xy, games unblocked, unbl0cked, fortnite, sizzle central, Solo Central, szvy, Solo Central games, savoy central, savoy, central games, savoy central games, unblocked gxmes, fun games, educational games, education, classroom6x, math games, unblocked games google sites, google sites, google sites unblocked games, html unblocked games, github unblocked games, school unblocked games, github games, school games, html games, free games, online games, coolfunscience, science games, math games, google sites, google sites games, games google sites, sitesgoogle games, games sitesgoogle, githubio games, github io games, szvy github games, szvycentral.pages.dev, szvycentral.netlify.app, szvycentral.vercel.app, tidym.vercel.app, subtoszvy, mathplayground, games unblocked, youtube unblocked, tiktok unblocked, youtube, tiktok, how to play unblocked games at school, games, online games, fortnite games unblocked, nowgg unblocked, nowgg alt links, nowgg, geforce now unblocked, geforcenow, geforce unblocked, geforcenow unblocked, geforce unblocked, play games, unblocked games for school, skibidi szvy">
-
-  <meta name="theme-color" content="#0f0f0f">
-  <meta name="msapplication-TileColor" content="#0f0f0f">
-
-  <meta property="image" content="/pfp.webp">
-  <meta property="og:image" content="/pfp.webp">
-
+   <meta name="title" content="snow's bio" />
+    <meta name="description" content="snow's bio" />
+    <meta name="keywords" content="unblocked games, unblocked, proxy, pr0xy, unbl0cked games, games, game, fnaf, minecraft, pr0xy, games unblocked, unbl0cked, fortnite, sizzle central, Solo Central, szvy, Solo Central games, savoy central, savoy, central games, savoy central games, unblocked gxmes, fun games, educational games, education, classroom6x, math games, unblocked games google sites, google sites, google sites unblocked games, html unblocked games, github unblocked games, school unblocked games, github games, school games, html games, free games, online games, coolfunscience, science games, math games, google sites, google sites games, games google sites, sitesgoogle games, games sitesgoogle, githubio games, github io games, szvy github games, szvycentral.pages.dev, szvycentral.netlify.app, szvycentral.vercel.app, tidym.vercel.app, subtoszvy, mathplayground, games unblocked, youtube unblocked, tiktok unblocked, youtube, tiktok, how to play unblocked games at school, games, online games, fortnite games unblocked, nowgg unblocked, nowgg alt links, nowgg, geforce now unblocked, geforcenow, geforce unblocked, geforcenow unblocked, geforce unblocked, play games, unblocked games for school, skibidi szvy">
+    <meta name="theme-color" content="#0f0f0f">
+    <meta name="msapplication-TileColor" content="#0f0f0f">
+    <meta property="image" content="/pfp.webp">
+    <meta property="og:image" content="/pfp.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html, body {
-      height: 100%;
-    }
-
-    body {
-      background: #080808;
-      min-height: 100vh;
-      font-family: 'Comfortaa', sans-serif;
-      overflow: hidden;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body { background: #080808; min-height: 100vh; font-family: 'Comfortaa', sans-serif; overflow: hidden; }
 
     #enter-screen {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      background: #080808;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: opacity 0.7s ease;
+      position: fixed; inset: 0; z-index: 100; background: #080808;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: opacity 0.7s ease;
     }
-
     #enter-screen span {
-      font-size: 22px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.55);
-      letter-spacing: 0.5px;
-      user-select: none;
+      font-size: 22px; font-weight: 600; color: rgba(255,255,255,0.55);
+      letter-spacing: 0.5px; user-select: none;
     }
+    #enter-screen.fade-out { opacity: 0; pointer-events: none; }
 
-    #enter-screen.fade-out {
-      opacity: 0;
-      pointer-events: none;
-    }
+    #site { opacity: 0; transition: opacity 0.7s ease; }
+    #site.visible { opacity: 1; }
 
-    #site {
-      opacity: 0;
-      transition: opacity 0.7s ease;
-    }
-
-    #site.visible {
-      opacity: 1;
-    }
-
-    #particles-js {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-    }
+    #particles-js { position: fixed; inset: 0; z-index: 0; }
 
     #player {
-      position: fixed;
-      top: 16px;
-      left: 16px;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      position: fixed; top: 16px; left: 16px; z-index: 20;
+      display: flex; align-items: center; gap: 8px;
     }
 
-    #player-title {
-      font-size: 20px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.45);
-      white-space: nowrap;
-    }
+    #player-title { font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.45); white-space: nowrap; }
 
     #player-toggle {
-      background: none;
-      border: none;
-      color: rgba(255,255,255,0.45);
-      font-size: 22px;
-      cursor: pointer;
-      padding: 0;
-      transition: color 0.15s;
-      display: flex;
-      align-items: center;
+      background: none; border: none; color: rgba(255,255,255,0.45); font-size: 22px;
+      cursor: pointer; padding: 0; transition: color 0.15s; display: flex; align-items: center;
     }
-
-    #player-toggle:hover {
-      color: rgba(255,255,255,0.85);
-    }
+    #player-toggle:hover { color: rgba(255,255,255,0.85); }
 
     #card-outer {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-      padding: 20px;
-      pointer-events: none;
+      position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+      z-index: 10; padding: 20px; pointer-events: none;
     }
 
     #card {
-      position: relative;
-      width: 100%;
-      max-width: 750px;
-      max-height: calc(100svh - 40px);
-      overflow-y: auto;
-      overflow-x: hidden;
-      scrollbar-width: none;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 20px;
-      padding: 30px 26px 26px;
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      position: relative; width: 100%; max-width: 750px; max-height: calc(100svh - 40px);
+      overflow-y: auto; overflow-x: hidden; scrollbar-width: none;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 20px; padding: 30px 26px 26px;
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
       box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset, 0 24px 64px rgba(0,0,0,0.7);
-      transform-style: preserve-3d;
-      will-change: transform;
-      text-align: center;
-      pointer-events: all;
+      transform-style: preserve-3d; will-change: transform; text-align: center; pointer-events: all;
     }
+    #card::-webkit-scrollbar { display: none; }
 
-    #card::-webkit-scrollbar {
-      display: none;
-    }
+    .avatar-wrap { position: relative; display: inline-block; margin-bottom: 14px; }
+    .avatar-placeholder { width: 82px; height: 82px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.12); display: block; object-fit: cover; }
+    .status-dot { position: absolute; bottom: 3px; right: 3px; width: 13px; height: 13px; border-radius: 50%; background: #3ddc84; border: 2px solid #080808; }
 
-    .avatar-wrap {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 14px;
-    }
+    .username { font-size: 19px; font-weight: 600; color: #f0f0f0; letter-spacing: -0.3px; margin-bottom: 3px; text-shadow: 0 0 12px #fff; }
+    .handle { font-size: 12.5px; color: rgba(255,255,255,0.32); margin-bottom: 6px; }
+    .location { font-size: 12px; color: rgba(255,255,255,0.35); display: flex; align-items: center; justify-content: center; gap: 5px; margin-bottom: 16px; }
+    .location i { font-size: 11px; }
 
-    .avatar-placeholder {
-      width: 82px;
-      height: 82px;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.12);
-      display: block;
-      object-fit: cover;
-    }
+    .badges { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+    .badge { font-size: 10.5px; font-weight: 500; padding: 3px 9px; border-radius: 20px; border: 1px solid; letter-spacing: 0.3px; }
+    .badge.purple { color: #c084fc; border-color: rgba(192,132,252,0.25); background: rgba(192,132,252,0.07); }
+    .badge.blue   { color: #60a5fa; border-color: rgba(96,165,250,0.25);  background: rgba(96,165,250,0.07); }
+    .badge.green  { color: #4ade80; border-color: rgba(74,222,128,0.25);  background: rgba(74,222,128,0.07); }
 
-    .status-dot {
-      position: absolute;
-      bottom: 3px;
-      right: 3px;
-      width: 13px;
-      height: 13px;
-      border-radius: 50%;
-      background: #3ddc84;
-      border: 2px solid #080808;
-    }
+    .divider { height: 1px; background: rgba(255,255,255,0.07); margin-bottom: 20px; }
 
-    .username {
-      font-size: 19px;
-      font-weight: 600;
-      color: #f0f0f0;
-      letter-spacing: -0.3px;
-      margin-bottom: 3px;
-      text-shadow: 0 0 12px #fff;
-    }
-
-    .handle {
-      font-size: 12.5px;
-      color: rgba(255,255,255,0.32);
-      margin-bottom: 6px;
-    }
-
-    .location {
-      font-size: 12px;
-      color: rgba(255,255,255,0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      margin-bottom: 16px;
-    }
-
-    .location i {
-      font-size: 11px;
-    }
-
-    .badges {
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
-
-    .badge {
-      font-size: 10.5px;
-      font-weight: 500;
-      padding: 3px 9px;
-      border-radius: 20px;
-      border: 1px solid;
-      letter-spacing: 0.3px;
-    }
-
-    .badge.purple {
-      color: #c084fc;
-      border-color: rgba(192,132,252,0.25);
-      background: rgba(192,132,252,0.07);
-    }
-
-    .badge.blue {
-      color: #60a5fa;
-      border-color: rgba(96,165,250,0.25);
-      background: rgba(96,165,250,0.07);
-    }
-
-    .badge.green {
-      color: #4ade80;
-      border-color: rgba(74,222,128,0.25);
-      background: rgba(74,222,128,0.07);
-    }
-
-    .divider {
-      height: 1px;
-      background: rgba(255,255,255,0.07);
-      margin-bottom: 20px;
-    }
-
-    .socials {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      margin-bottom: 22px;
-    }
-
-    .social-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: none;
-      border: none;
-      color: rgba(255,255,255,0.7);
-      font-size: 30px;
-      text-decoration: none;
-      transition: transform 0.18s ease, opacity 0.18s ease;
-      cursor: pointer;
-      text-shadow: 0 0 6px rgba(255,255,255,0.6);
-    }
-
-    .social-btn svg {
-      width: 1em;
-      height: 1em;
-      fill: currentColor;
-    }
+    .socials { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 22px; }
+    .social-btn { display: flex; align-items: center; justify-content: center; background: none; border: none; color: rgba(255,255,255,0.7); font-size: 30px; text-decoration: none; transition: transform 0.18s ease, opacity 0.18s ease; cursor: pointer; text-shadow: 0 0 6px rgba(255,255,255,0.6); }
+    .social-btn svg { width: 1em; height: 1em; fill: currentColor; }
 
     #tooltip {
-      position: fixed;
-      z-index: 9999;
-      pointer-events: none;
-      background: rgba(10,10,10,0.9);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.8);
-      font-size: 11px;
-      font-family: 'Inter', sans-serif;
-      padding: 5px 10px;
-      border-radius: 8px;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.12s ease;
-      transform: translate(-50%, -100%);
+      position: fixed; z-index: 9999; pointer-events: none;
+      background: rgba(10,10,10,0.9); border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.8); font-size: 11px; font-family: 'Inter', sans-serif;
+      padding: 5px 10px; border-radius: 8px; white-space: nowrap;
+      opacity: 0; transition: opacity 0.12s ease; transform: translate(-50%, -100%);
     }
 
-    .footer {
-      font-size: 10.5px;
-      color: rgba(255,255,255,0.16);
-      letter-spacing: 0.4px;
-    }
-
-    .footer a {
-      color: rgba(255,255,255,0.26);
-      text-decoration: none;
-    }
-
-    .footer a:hover {
-      color: rgba(255,255,255,0.5);
-    }
+    .footer { font-size: 10.5px; color: rgba(255,255,255,0.16); letter-spacing: 0.4px; }
+    .footer a { color: rgba(255,255,255,0.26); text-decoration: none; }
+    .footer a:hover { color: rgba(255,255,255,0.5); }
   </style>
 </head>
-
 <body>
-  <div id="enter-screen">
-    <span>hi click to enter :P</span>
-  </div>
-
-  <div id="site">
-    <div id="particles-js"></div>
-    <div id="tooltip"></div>
-
-    <div id="player">
-      <button id="player-toggle"><i class="fa-solid fa-pause"></i></button>
-      <div id="player-title">GREECE (feat. Drake)</div>
-    </div>
-
-    <div id="card-outer">
-      <div id="card">
-        <div class="avatar-wrap">
-          <img class="avatar-placeholder" src="pfp.webp" alt="avatar" />
-        </div>
-
-        <div class="username">hiya, nice to meet you. im snow.</div>
-        <div class="handle">@light.snow on Discord</div>
-
-        <div class="divider"></div>
-
-        <div class="socials">
-          <a href="https://roblox.com/users/4111484395/profile" target="_blank" class="social-btn" data-tip="Roblox">
-            <svg viewBox="0.16 0 23.68 24"><path d="M5.164 0L.16 18.928L18.836 24L23.84 5.072Z"/></svg>
-          </a>
-
-          <a href="https://discord.com/users/1453556642296627355" target="_blank" class="social-btn" data-tip="Discord">
-            <i class="fa-brands fa-discord"></i>
-          </a>
-
-          <a href="https://instagram.com/watermelon.cat398" target="_blank" class="social-btn" data-tip="Instagram">
-            <i class="fa-brands fa-instagram"></i>
-          </a>
-
-          <a href="https://open.spotify.com/user/31m24mzkhxfjhvrgdv2t4blawyr4" target="_blank" class="social-btn" data-tip="Spotify">
-            <i class="fa-brands fa-spotify"></i>
-          </a>
-        </div>
-
   
+<div id="enter-screen">
+  <span>hi click to enter :P</span>
+</div>
 
-        <div class="footer">
-          site by <a href="https://qatual.net" target="_blank">qatual</a>
-        </div>
-      </div>
-    </div>
+<div id="site">
+  <div id="particles-js"></div>
+  <div id="tooltip"></div>
+
+  <div id="player">
+    <button id="player-toggle"><i class="fa-solid fa-pause"></i></button>
+    <div id="player-title">GREECE (feat. Drake)</div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <div id="card-outer">
+    <div id="card">
 
-  <script>
-    const enterScreen = document.getElementById('enter-screen');
-    const site = document.getElementById('site');
-    const audio = new Audio('audio.mp3');
+      <div class="avatar-wrap">
+        <img class="avatar-placeholder" src="pfp.webp" alt="avatar" />
+      </div>
 
-    audio.loop = true;
+      <div class="username">hiya, nice to meet you. im snow.</div>
+      <div class="handle">@light.snow on Discord</div>
 
-    enterScreen.addEventListener('click', () => {
-      audio.play();
-      enterScreen.classList.add('fade-out');
-      site.classList.add('visible');
+      <div class="divider"></div>
 
-      setTimeout(() => enterScreen.remove(), 750);
+      <div class="socials">
 
-      particlesJS("particles-js", {
-        "particles": {
-          "number": {
-            "value": 53,
-            "density": {
-              "enable": true,
-              "value_area": 800
-            }
-          },
-          "color": { "value": "#ffffff" },
-          "shape": {
-            "type": "circle",
-            "stroke": { "width": 0, "color": "#000000" },
-            "polygon": { "nb_sides": 5 },
-            "image": { "src": "img/github.svg", "width": 100, "height": 100 }
-          },
-          "opacity": {
-            "value": 0.3928359549120531,
-            "random": true,
-            "anim": { "enable": false }
-          },
-          "size": {
-            "value": 8.017060304327615,
-            "random": false,
-            "anim": { "enable": false }
-          },
-          "line_linked": { "enable": false },
-          "move": {
-            "enable": true,
-            "speed": 1.0,
-            "direction": "bottom-left",
-            "out_mode": "out"
-          }
-        },
-        "interactivity": {
-          "detect_on": "canvas",
-          "events": {
-            "onhover": { "enable": false },
-            "onclick": { "enable": false }
-          }
-        },
-        "retina_detect": true
-      });
-    }, { once: true });
+        <a href="https://roblox.com/users/4111484395/profile" target="_blank"
+           class="social-btn" data-tip="Roblox">
+          <svg viewBox="0.16 0 23.68 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.164 0L.16 18.928L18.836 24L23.84 5.072Zm8.747 15.354l-5.219-1.417l1.399-5.29l5.22 1.418l-1.4 5.29z"/>
+          </svg>
+        </a>
 
-    const toggle = document.getElementById('player-toggle');
+        <a href="https://discord.com/users/1453556642296627355" target="_blank"
+           class="social-btn" data-tip="Discord">
+          <i class="fa-brands fa-discord"></i>
+        </a>
 
-    toggle.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play();
-      } else {
-        audio.pause();
-      }
-    });
+        <a href="https://instagram.com/watermelon.cat398" target="_blank"
+           class="social-btn" data-tip="Instagram">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
 
-    audio.addEventListener('play', () => {
-      toggle.innerHTML = '<i class="fa-solid fa-pause"></i>';
-    });
+        <a href="https://open.spotify.com/user/31m24mzkhxfjhvrgdv2t4blawyr4" target="_blank"
+           class="social-btn" data-tip="Spotify">
+          <i class="fa-brands fa-spotify"></i>
+        </a>
 
-    audio.addEventListener('pause', () => {
-      toggle.innerHTML = '<i class="fa-solid fa-play"></i>';
-    });
+      </div>
 
-    const card = document.getElementById('card');
+      <div class="footer">
+        site by <a href="https://qatual.net" target="_blank">qatual</a>
+      </div>
 
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
-      const dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+    </div>
+  </div>
+</div>
 
-      card.style.transition = 'transform 0.08s ease';
-      card.style.transform = `perspective(900px) rotateY(${dx * 11}deg) rotateX(${-dy * 11}deg) scale3d(1.02, 1.02, 1.02)`;
-    });
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+  const enterScreen = document.getElementById('enter-screen');
+  const site = document.getElementById('site');
+  const audio = new Audio('audio.mp3');
+  audio.loop = true;
 
-    card.addEventListener('mouseleave', () => {
-      card.style.transition = 'transform 0.5s ease';
-      card.style.transform = '';
-    });
+  enterScreen.addEventListener('click', () => {
+    audio.play();
+    enterScreen.classList.add('fade-out');
+    site.classList.add('visible');
+    setTimeout(() => enterScreen.remove(), 750);
+    particlesJS("particles-js", {"particles":{"number":{"value":53,"density":{"enable":true,"value_area":800}},"color":{"value":"#ffffff"},"shape":{"type":"circle","stroke":{"width":0,"color":"#000000"},"polygon":{"nb_sides":5},"image":{"src":"img/github.svg","width":100,"height":100}},"opacity":{"value":0.3928359549120531,"random":true,"anim":{"enable":false,"speed":1,"opacity_min":0.1,"sync":false}},"size":{"value":8.017060304327615,"random":false,"anim":{"enable":false,"speed":40,"size_min":0.1,"sync":false}},"line_linked":{"enable":false,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},"move":{"enable":true,"speed":1.0,"direction":"bottom-left","random":false,"straight":false,"out_mode":"out","bounce":false,"attract":{"enable":false,"rotateX":600,"rotateY":1200}}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":false,"mode":"repulse"},"onclick":{"enable":false,"mode":"push"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":400,"size":40,"duration":2,"opacity":8,"speed":3},"repulse":{"distance":200,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":true});
+  }, { once: true });
 
-    const tooltip = document.getElementById('tooltip');
+  const toggle = document.getElementById('player-toggle');
 
-    document.querySelectorAll('.social-btn').forEach(btn => {
-      btn.addEventListener('mouseenter', () => {
-        tooltip.textContent = btn.dataset.tip;
-        tooltip.style.opacity = '1';
-      });
+  toggle.addEventListener('click', () => {
+    if (audio.paused) { audio.play(); } else { audio.pause(); }
+  });
 
-      btn.addEventListener('mousemove', (e) => {
-        tooltip.style.left = e.clientX + 'px';
-        tooltip.style.top = (e.clientY - 12) + 'px';
-      });
+  audio.addEventListener('play', () => { toggle.innerHTML = '<i class="fa-solid fa-pause"></i>'; });
+  audio.addEventListener('pause', () => { toggle.innerHTML = '<i class="fa-solid fa-play"></i>'; });
 
-      btn.addEventListener('mouseleave', () => {
-        tooltip.style.opacity = '0';
-      });
-    });
-  </script>
+  const card = document.getElementById('card');
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+    const dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+    card.style.transition = 'transform 0.08s ease';
+    card.style.transform = `perspective(900px) rotateY(${dx * 11}deg) rotateX(${-dy * 11}deg) scale3d(1.02, 1.02, 1.02)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transition = 'transform 0.5s ease';
+    card.style.transform = '';
+  });
+
+  const tooltip = document.getElementById('tooltip');
+  let tipX = 0, tipY = 0, rafId = null;
+  function animateTip() { tooltip.style.left = tipX + 'px'; tooltip.style.top = (tipY - 12) + 'px'; rafId = null; }
+
+  document.querySelectorAll('.social-btn').forEach(btn => {
+    btn.addEventListener('mouseenter', () => { tooltip.textContent = btn.dataset.tip; tooltip.style.opacity = '1'; });
+    btn.addEventListener('mousemove', (e) => { tipX = e.clientX; tipY = e.clientY; if (!rafId) rafId = requestAnimationFrame(animateTip); });
+    btn.addEventListener('mouseleave', () => { tooltip.style.opacity = '0'; });
+  });
+</script>
 </body>
 </html>
