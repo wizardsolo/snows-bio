@@ -1,17 +1,38 @@
-const cursor = document.getElementById("cursor");
+export function initCursor() {
+  const dot = document.createElement('div');
+  dot.className = 'cursor-dot';
+  document.body.appendChild(dot);
 
-document.addEventListener("mousemove", (e) => {
-  cursor.style.left = e.clientX + "px";
-  cursor.style.top = e.clientY + "px";
-});
+  let lastSpawn = 0;
 
-// click feedback WITHOUT affecting position
-document.addEventListener("mousedown", () => {
-  cursor.style.boxShadow = "0 0 15px rgba(255,255,255,0.9), 0 0 30px rgba(255,255,255,0.5)";
-  cursor.style.transform = "translate(-50%, -50%) scale(1.3)";
-});
+  document.addEventListener('mousemove', (e) => {
+    dot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
 
-document.addEventListener("mouseup", () => {
-  cursor.style.boxShadow = "0 0 10px rgba(255,255,255,0.6), 0 0 20px rgba(255,255,255,0.3)";
-  cursor.style.transform = "translate(-50%, -50%) scale(1)";
-});
+    const now = performance.now();
+    if (now - lastSpawn > 35) {
+      spawnFlake(e.clientX, e.clientY);
+      lastSpawn = now;
+    }
+  });
+}
+
+function spawnFlake(x, y) {
+  const el = document.createElement('div');
+  el.className = 'cursor-flake';
+  el.textContent = '❄︎';
+
+  const drift = (Math.random() - 0.5) * 48;
+  const duration = 700 + Math.random() * 500;
+  const size = 9 + Math.random() * 7;
+
+  el.style.cssText = `
+    left: ${x}px;
+    top: ${y}px;
+    font-size: ${size}px;
+    --drift: ${drift}px;
+    animation: flake-fall ${duration}ms ease-out forwards;
+  `;
+
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), duration);
+}
