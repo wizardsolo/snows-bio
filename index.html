@@ -157,90 +157,7 @@
   color: rgba(255,255,255,0.4);
   text-align: center;
 }
-  .clock-card {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 18px;
-  padding: 18px;
-  backdrop-filter: blur(16px);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  min-width: 260px;
-}
-
-.clock-top {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-}
-
-.clock-info {
-  text-align: left;
-}
-
-#time {
-  font-size: 26px;
-  font-weight: 600;
-  color: white;
-}
-
-#date {
-  font-size: 12px;
-  color: rgba(255,255,255,0.6);
-}
-
-#tz {
-  font-size: 11px;
-  color: rgba(255,255,255,0.4);
-}
-
-#offset {
-  font-size: 11px;
-  color: rgba(255,255,255,0.35);
-  margin-top: 4px;
-}
-
-/* simple analog clock */
-.analog-clock {
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.15);
-  position: relative;
-}
-
-.hand {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform-origin: bottom;
-  background: white;
-}
-
-.hand {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform-origin: 50% 100%;
-  background: white;
-}
-    .hand.hour {
-  width: 2px;
-  height: 14px;
-}
-
-.hand.min {
-  width: 2px;
-  height: 18px;
-  opacity: 0.8;
-}
-
-.hand.sec {
-  width: 1px;
-  height: 20px;
-  background: #ff4d6d;
-}
+  
   </style>
 </head>
 <body>
@@ -298,31 +215,14 @@
       </div>
 
       <div class="footer">
-        site by <a href="https://qatual.net" target="_blank">qatual</a> and refined by snow
+        site by <a href="https://qatual.net" target="_blank">qatual</a>
       </div>
        </div>
 
 <div class="right-column">
-
-  <div class="clock-card">
-
-    <div class="clock-top">
-      <div class="analog-clock">
-        <div class="hand hour" id="h"></div>
-        <div class="hand min" id="m"></div>
-        <div class="hand sec" id="s"></div>
-      </div>
-
-      <div class="clock-info">
-        <div id="time">--:--:--</div>
-        <div id="date">---</div>
-        <div id="tz">America/Toronto</div>
-        <div id="offset">Your time: --</div>
-      </div>
-    </div>
-
-  </div>
-
+    <div id="clock-time">00:00:00</div>
+  <div id="clock-date">Loading...</div>
+  <div id="clock-zone">Loading...</div>
 </div>
 
 </div>
@@ -377,30 +277,22 @@
     btn.addEventListener('mousemove', (e) => { tipX = e.clientX; tipY = e.clientY; if (!rafId) rafId = requestAnimationFrame(animateTip); });
     btn.addEventListener('mouseleave', () => { tooltip.style.opacity = '0'; });
   });
-function updateClock() {
+  function updateClock() {
   const now = new Date();
 
-  const timeEl = document.getElementById("time");
-  const dateEl = document.getElementById("date");
-  const tzEl = document.getElementById("tz");
-  const offsetEl = document.getElementById("offset");
+  document.getElementById("clock-time").textContent =
+    now.toLocaleTimeString();
 
-  if (!timeEl || !dateEl || !tzEl || !offsetEl) return;
+  document.getElementById("clock-date").textContent =
+    now.toLocaleDateString(undefined, {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric"
+    });
 
-  timeEl.textContent = now.toLocaleTimeString();
-
-  dateEl.textContent = now.toLocaleDateString(undefined, {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric"
-  });
-
-  tzEl.textContent =
+  document.getElementById("clock-zone").textContent =
     Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-  const diff = -now.getTimezoneOffset() / 60;
-  offsetEl.textContent = `Your time: ${diff >= 0 ? "+" : ""}${diff}h`;
 }
 
 updateClock();
