@@ -357,26 +357,6 @@
     btn.addEventListener('mousemove', (e) => { tipX = e.clientX; tipY = e.clientY; if (!rafId) rafId = requestAnimationFrame(animateTip); });
     btn.addEventListener('mouseleave', () => { tooltip.style.opacity = '0'; });
   });
-  function updateClock() {
-  const now = new Date();
-
-  document.getElementById("clock-time").textContent =
-    now.toLocaleTimeString();
-
-  document.getElementById("clock-date").textContent =
-    now.toLocaleDateString(undefined, {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-      year: "numeric"
-    });
-
-  document.getElementById("clock-zone").textContent =
-    Intl.DateTimeFormat().resolvedOptions().timeZone;
-}
-
-updateClock();
-setInterval(updateClock, 1000);
 </script>
   <script src="cursor.js"></script>
 </body>
