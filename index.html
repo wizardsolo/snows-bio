@@ -39,19 +39,6 @@
 
     #particles-js { position: fixed; inset: 0; z-index: 0; }
 
-    #player {
-      position: fixed; top: 16px; left: 16px; z-index: 20;
-      display: flex; align-items: center; gap: 8px;
-    }
-
-    #player-title { font-size: 20px; font-weight: 500; color: rgba(255,255,255,0.45); white-space: nowrap; }
-
-    #player-toggle {
-      background: none; border: none; color: rgba(255,255,255,0.45); font-size: 22px;
-      cursor: pointer; padding: 0; transition: color 0.15s; display: flex; align-items: center;
-    }
-    #player-toggle:hover { color: rgba(255,255,255,0.85); }
-
     #card-outer {
        min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; position: relative; z-index: 10; pointer-events: none;
     }
@@ -220,6 +207,63 @@
   line-height: 1.8;
   margin-bottom: 15px;
 }
+    #music-player {
+    margin-top: 25px;
+    text-align: center;
+}
+
+#music-cover {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 18px;
+    margin-bottom: 15px;
+
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 15px 35px rgba(0,0,0,0.5);
+}
+
+#music-title {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+#music-artist {
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+    margin-bottom: 22px;
+}
+
+#music-controls {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+}
+
+#music-controls button {
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.85);
+
+    backdrop-filter: blur(10px);
+
+    transition: 0.2s ease;
+
+    font-size: 18px;
+}
+
+#music-controls button:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.12);
+}
+    
   </style>
 </head>
 <body>
@@ -232,10 +276,7 @@
   <div id="tooltip"></div>
   
 
-  <div id="player">
-    <button id="player-toggle"><i class="fa-solid fa-pause"></i></button>
-    <div id="player-title">GREECE (feat. Drake)</div>
-  </div>
+  
 
   <div id="card-outer">
     <div id="card">
@@ -307,6 +348,39 @@
         listening to music, or working on projects.
     </p>
 </div>
+      <div class="divider"></div>
+
+<div id="music-player">
+
+    <img id="music-cover" src="greece.webp" alt="Album Cover">
+  <input id="seek" type="range" min="0" max="100" value="0">
+<input id="volume" type="range" min="0" max="1" step="0.01">
+
+    <div id="music-title">GREECE</div>
+
+    <div id="music-artist">
+        DJ Khaled ft. Drake
+    </div>
+
+    <div id="music-controls">
+        <button id="prev-btn">
+            <i class="fa-solid fa-backward"></i>
+        </button>
+
+        <button id="play-btn">
+            <i class="fa-solid fa-pause"></i>
+        </button>
+
+        <button id="next-btn">
+            <i class="fa-solid fa-forward"></i>
+        </button>
+
+        <button id="loop-btn">
+            <i class="fa-solid fa-repeat"></i>
+        </button>
+    </div>
+
+</div>
     </div>
   </div>
 </div>
@@ -315,26 +389,33 @@
 <script>
   const enterScreen = document.getElementById('enter-screen');
   const site = document.getElementById('site');
-  const audio = new Audio('audio.mp3');
-  audio.loop = true;
+  const songs = [
+    {
+        src: "audio.mp3",
+        title: "GREECE",
+        artist: "DJ Khaled ft. Drake",
+        cover: "greece.webp"
+    },
+    {
+        src: "song2.mp3",
+        title: "Song 2",
+        artist: "Artist",
+        cover: "cover2.webp"
+    }
+];
+  let currentSong = 0;
+
+const audio = new Audio(songs[currentSong].src);
+audio.loop = false;
 
   enterScreen.addEventListener('click', () => {
-    audio.play();
+   audio.play().catch(() => {});
+updateSongUI();
     enterScreen.classList.add('fade-out');
     site.classList.add('visible');
     setTimeout(() => enterScreen.remove(), 750);
     particlesJS("particles-js", {"particles":{"number":{"value":53,"density":{"enable":true,"value_area":800}},"color":{"value":"#ffffff"},"shape":{"type":"circle","stroke":{"width":0,"color":"#000000"},"polygon":{"nb_sides":5},"image":{"src":"img/github.svg","width":100,"height":100}},"opacity":{"value":0.3928359549120531,"random":true,"anim":{"enable":false,"speed":1,"opacity_min":0.1,"sync":false}},"size":{"value":8.017060304327615,"random":false,"anim":{"enable":false,"speed":40,"size_min":0.1,"sync":false}},"line_linked":{"enable":false,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},"move":{"enable":true,"speed":1.0,"direction":"bottom-left","random":false,"straight":false,"out_mode":"out","bounce":false,"attract":{"enable":false,"rotateX":600,"rotateY":1200}}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":false,"mode":"repulse"},"onclick":{"enable":false,"mode":"push"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":400,"size":40,"duration":2,"opacity":8,"speed":3},"repulse":{"distance":200,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":true});
   }, { once: true });
-
-  const toggle = document.getElementById('player-toggle');
-
-  toggle.addEventListener('click', () => {
-    if (audio.paused) { audio.play(); } else { audio.pause(); }
-  });
-
-  audio.addEventListener('play', () => { toggle.innerHTML = '<i class="fa-solid fa-pause"></i>'; });
-  audio.addEventListener('pause', () => { toggle.innerHTML = '<i class="fa-solid fa-play"></i>'; });
-
   const card = document.getElementById('card');
   card.addEventListener('mousemove', (e) => {
     const rect = card.getBoundingClientRect();
@@ -412,7 +493,123 @@
 
 updateClock();
 setInterval(updateClock, 1000);
+  const playBtn = document.getElementById("play-btn");
+const prevBtn = document.getElementById("prev-btn");
+const nextBtn = document.getElementById("next-btn");
+const loopBtn = document.getElementById("loop-btn");
+
+playBtn.addEventListener("click", () => {
+    if (audio.paused) {
+       audio.play().catch(() => {});
+    } else {
+        audio.pause();
+    }
+});
+
+audio.addEventListener("play", () => {
+    playBtn.innerHTML =
+        '<i class="fa-solid fa-pause"></i>';
+});
+
+audio.addEventListener("pause", () => {
+    playBtn.innerHTML =
+        '<i class="fa-solid fa-play"></i>';
+});
+
+loopBtn.addEventListener("click", () => {
+    audio.loop = !audio.loop;
+
+    loopBtn.style.color = audio.loop
+        ? "#ffffff"
+        : "rgba(255,255,255,0.5)";
+});
+  function updateSongUI() {
+    const song = songs[currentSong];
+
+    document.getElementById("music-title").textContent = song.title;
+    document.getElementById("music-artist").textContent = song.artist;
+    document.getElementById("music-cover").src = song.cover;
+}
   
+prevBtn.addEventListener("click", () => {
+    currentSong = (currentSong - 1 + songs.length) % songs.length;
+    audio.src = songs[currentSong].src;
+audio.play().catch(() => {});
+    updateSongUI();
+});
+  audio.addEventListener("ended", () => {
+    currentSong = (currentSong + 1) % songs.length;
+    audio.src = songs[currentSong].src;
+ audio.play().catch(() => {});
+    updateSongUI();
+});
+  function loadSong(index) {
+    currentSong = index;
+    audio.src = songs[currentSong].src;
+    audio.load();
+    updateSongUI();
+}
+  
+
+prevBtn.addEventListener("click", () => {
+    loadSong((currentSong - 1 + songs.length) % songs.length);
+    audio.play().catch(() => {});
+});
+  function updatePlayIcon() {
+    playBtn.innerHTML = audio.paused
+        ? '<i class="fa-solid fa-play"></i>'
+        : '<i class="fa-solid fa-pause"></i>';
+}
+  playBtn.addEventListener("click", () => {
+    if (audio.paused) audio.play().catch(() => {});
+    else audio.pause();
+    updatePlayIcon();
+});
+
+audio.addEventListener("play", updatePlayIcon);
+audio.addEventListener("pause", updatePlayIcon);
+  audio.volume = 0.5;
+  const seek = document.getElementById("seek");
+
+audio.addEventListener("timeupdate", () => {
+  if (!audio.duration) return;
+  seek.value = (audio.currentTime / audio.duration) * 100;
+});
+
+seek.addEventListener("input", () => {
+  audio.currentTime = (seek.value / 100) * audio.duration;
+});
+  const volume = document.getElementById("volume");
+volume.value = audio.volume;
+
+volume.addEventListener("input", () => {
+  audio.volume = volume.value;
+});
+  audio.addEventListener("loadedmetadata", () => {
+  seek.value = 0;
+});
+  function loadSong(index) {
+  currentSong = index;
+  audio.src = songs[currentSong].src;
+  audio.load();
+  updateSongUI();
+}
+  function loadSong(index) {
+  currentSong = index;
+  audio.src = songs[currentSong].src;
+  audio.load();
+  updateSongUI();
+}
+
+nextBtn.addEventListener("click", () => {
+  loadSong((currentSong + 1) % songs.length);
+  audio.play().catch(() => {});
+});
+
+prevBtn.addEventListener("click", () => {
+  loadSong((currentSong - 1 + songs.length) % songs.length);
+  audio.play().catch(() => {});
+});
 </script>
   <script src="cursor.js"></script>
 </body>
