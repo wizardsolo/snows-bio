@@ -207,8 +207,12 @@
   line-height: 1.8;
   margin-bottom: 15px;
 }
-    #music-player {
+#music-player {
     margin-top: 25px;
+    padding: 24px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
     text-align: center;
 }
 
@@ -262,6 +266,27 @@
 #music-controls button:hover {
     transform: translateY(-2px);
     background: rgba(255,255,255,0.12);
+}
+    #seek,
+#volume {
+    width: 100%;
+    margin: 12px 0;
+    appearance: none;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.12);
+    outline: none;
+}
+
+#seek::-webkit-slider-thumb,
+#volume::-webkit-slider-thumb {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
 }
     
   </style>
@@ -506,15 +531,7 @@ playBtn.addEventListener("click", () => {
     }
 });
 
-audio.addEventListener("play", () => {
-    playBtn.innerHTML =
-        '<i class="fa-solid fa-pause"></i>';
-});
 
-audio.addEventListener("pause", () => {
-    playBtn.innerHTML =
-        '<i class="fa-solid fa-play"></i>';
-});
 
 loopBtn.addEventListener("click", () => {
     audio.loop = !audio.loop;
@@ -531,17 +548,10 @@ loopBtn.addEventListener("click", () => {
     document.getElementById("music-cover").src = song.cover;
 }
   
-prevBtn.addEventListener("click", () => {
-    currentSong = (currentSong - 1 + songs.length) % songs.length;
-    audio.src = songs[currentSong].src;
-audio.play().catch(() => {});
-    updateSongUI();
-});
-  audio.addEventListener("ended", () => {
-    currentSong = (currentSong + 1) % songs.length;
-    audio.src = songs[currentSong].src;
- audio.play().catch(() => {});
-    updateSongUI();
+
+audio.addEventListener("ended", () => {
+    loadSong((currentSong + 1) % songs.length);
+    audio.play().catch(() => {});
 });
   function loadSong(index) {
     currentSong = index;
@@ -555,29 +565,28 @@ prevBtn.addEventListener("click", () => {
     loadSong((currentSong - 1 + songs.length) % songs.length);
     audio.play().catch(() => {});
 });
-  function updatePlayIcon() {
+ function updatePlayIcon() {
     playBtn.innerHTML = audio.paused
         ? '<i class="fa-solid fa-play"></i>'
         : '<i class="fa-solid fa-pause"></i>';
 }
-  playBtn.addEventListener("click", () => {
-    if (audio.paused) audio.play().catch(() => {});
-    else audio.pause();
-    updatePlayIcon();
-});
 
 audio.addEventListener("play", updatePlayIcon);
 audio.addEventListener("pause", updatePlayIcon);
-  audio.volume = 0.5;
-  const seek = document.getElementById("seek");
+
+audio.volume = 0.5;
+
+const seek = document.getElementById("seek");
 
 audio.addEventListener("timeupdate", () => {
-  if (!audio.duration) return;
-  seek.value = (audio.currentTime / audio.duration) * 100;
+    if (!audio.duration) return;
+
+    seek.value = (audio.currentTime / audio.duration) * 100;
 });
 
 seek.addEventListener("input", () => {
-  audio.currentTime = (seek.value / 100) * audio.duration;
+    audio.currentTime =
+        (seek.value / 100) * audio.duration;
 });
   const volume = document.getElementById("volume");
 volume.value = audio.volume;
@@ -588,28 +597,11 @@ volume.addEventListener("input", () => {
   audio.addEventListener("loadedmetadata", () => {
   seek.value = 0;
 });
-  function loadSong(index) {
-  currentSong = index;
-  audio.src = songs[currentSong].src;
-  audio.load();
-  updateSongUI();
-}
-  function loadSong(index) {
-  currentSong = index;
-  audio.src = songs[currentSong].src;
-  audio.load();
-  updateSongUI();
-}
-
 nextBtn.addEventListener("click", () => {
-  loadSong((currentSong + 1) % songs.length);
-  audio.play().catch(() => {});
-});
+    loadSong((currentSong + 1) % songs.length);
+    audio.play().catch(() => {});
+}); 
 
-prevBtn.addEventListener("click", () => {
-  loadSong((currentSong - 1 + songs.length) % songs.length);
-  audio.play().catch(() => {});
-});
 </script>
   <script src="cursor.js"></script>
 </body>
